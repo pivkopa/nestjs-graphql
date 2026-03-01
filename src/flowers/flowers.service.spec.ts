@@ -67,8 +67,6 @@ describe('FlowersService', () => {
             name: 'Lily',
             color: 'Red',
             price: 10,
-            createdAt: new Date(),
-            updatedAt: new Date(),
         })
     })
 });
