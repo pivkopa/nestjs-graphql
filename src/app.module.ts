@@ -13,30 +13,35 @@ import { FlowersGraphqlModule } from './flowers-graphql/flowers-graphql.module';
 import { WebsocketGateway } from './websocket.gateway';
 
 @Module({
-  imports: [FlowersModule, ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: '.env',
-  }), MicroserviceModule, ClientsModule.register([
-    {
-      name: 'ORDER_SERVICE',
-      transport: Transport.TCP,
-      options: {
-        host: 'localhost',
-        port: 8877,
-      }
-    },
-  ]), GraphQLModule.forRoot<ApolloDriverConfig>({
-    driver: ApolloDriver,
-    autoSchemaFile: join(process.cwd(), 'schema.gql'),
-    sortSchema: true,
-  }), FlowersGraphqlModule],
+  imports: [
+    FlowersModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+    MicroserviceModule,
+    ClientsModule.register([
+      {
+        name: 'ORDER_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: 'localhost',
+          port: 8877,
+        },
+      },
+    ]),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'schema.gql'),
+      sortSchema: true,
+    }),
+    FlowersGraphqlModule,
+  ],
   controllers: [AppController],
   providers: [AppService, WebsocketGateway],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes('flowers');
+    consumer.apply(LoggerMiddleware).forRoutes('flowers');
   }
 }

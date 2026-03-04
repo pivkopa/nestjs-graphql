@@ -1,12 +1,12 @@
-import { Injectable, Scope } from "@nestjs/common";
+import { Injectable, Scope } from '@nestjs/common';
 
 @Injectable({
-    scope: Scope.REQUEST
+  scope: Scope.REQUEST,
 })
 export class FlowersScopedService {
-    constructor() { }
+  constructor() {}
 
-    findAll() {
-        return 'findAll'
-    }
+  findAll() {
+    return 'findAll';
+  }
 }

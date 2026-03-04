@@ -6,15 +6,18 @@ import { EnumAppMode } from 'src/types';
 
 @Injectable()
 export class FlowersService {
-  constructor(private readonly prismaService: PrismaService, private readonly configService: ConfigService) { }
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly configService: ConfigService,
+  ) {}
   async findAll() {
-    console.log(this.configService.get<EnumAppMode>('mode'))
-    return await this.prismaService.flower.findMany()
+    console.log(this.configService.get<EnumAppMode>('mode'));
+    return await this.prismaService.flower.findMany();
   }
 
   async create(dto: FlowersCreateDto) {
     return await this.prismaService.flower.create({
       data: dto,
-    })
+    });
   }
 }
